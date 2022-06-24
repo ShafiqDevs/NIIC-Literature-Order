@@ -1,0 +1,33 @@
+{
+  "name": "niic-literature-order",
+  "version": "1.0.0",
+  "description": "Automated order processing - niic literature order",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Shafiq Belaroussi",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "body-parser": "^1.20.0",
+    "browserify": "^17.0.0",
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
+    "mongoose": "^6.4.0",
+    "nodemon": "^2.0.18"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ShafiqDevs/NIIC-Literature-Order.git"
+  },
+  "keywords": [
+    "webAPP"
+  ],
+  "bugs": {
+    "url": "https://github.com/ShafiqDevs/NIIC-Literature-Order/issues"
+  },
+  "homepage": "https://github.com/ShafiqDevs/NIIC-Literature-Order#readme"
+}

@@ -1,0 +1,31 @@
+body
+{
+    color: black;
+}
+
+
+.nav-link
+{
+    color: orange;
+}
+
+
+.sectionDefaultPaddings
+{
+    padding: 35px 25px;
+}
+.headingDefaultPaddings
+{
+    padding: 20px;
+}
+
+.me-extra
+{
+    margin-right: 10rem;
+}
+
+.midImgSize
+{
+    height: 150px;
+    width: 150px;
+}
