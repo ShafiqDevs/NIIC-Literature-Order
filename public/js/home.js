@@ -8,6 +8,7 @@ const myRoutes = {
 };
 
 let productCollection;
+const basket = [];
 
 const request = new XMLHttpRequest();
 
@@ -40,16 +41,55 @@ const Obj_parcelBox = {
 };
 
 
-function addToBasket(name) {
+function addToBasket(_name) {
+
+    // clear basket to allow for refreshing
+    clearBasket();
+
+
+    // retrieve quantity and check if it is a valid input
     let quantity;
     try {
-        quantity = parseInt($("form input." + name).val());
+        quantity = parseInt($("form input." + _name).val());
+        print(_name);
         if (quantity > 0) {} else throw (quantityError);
     } catch (quantityError) {
-        alert("You need at least 1 " + name, "to add it to your basket");
+        alert("You need at least 1 " + _name, "to add it to your basket");
         return;
     }
 
-    // add item to basket using $.append() - NOTE: mthod of adding could change at a later commit
-    $("div.dropdown ul.dropdown-menu").append('<li><a class="dropdown-item"><pre><small>x' + quantity + '</small>     ' + name + '</pre></a></li>');
+    // basketProduct will be sent to server for further processing at a later commit
+    basketProduct = {
+        productName: _name,
+        productData: productCollection[_name],
+        productQuantity: quantity
+    };
+
+    if (basket.length < 1) {
+        basket.push(basketProduct);
+    } else {
+        for (let i = 0; i < basket.length; i++) {
+            if (basketProduct.productName !== basket[i].productName) {
+                if (i === basket.length - 1) {
+                    basket.push(basketProduct);
+                    break;
+                }
+            } else {
+                basket[i].productQuantity += quantity;
+                break;
+            }
+        }
+    }
+
+    basket.forEach(element => {
+        $("div.dropdown ul.dropdown-menu").append('<li class="dropdown-item"><pre><small>x' + element.productQuantity + '</small>    ' + element.productName + ' <button type="button"><i class="fa-solid fa-square-minus"></i></button></pre></li>');
+    });
+}
+
+function print(_log) {
+    console.log(_log);
+}
+
+function clearBasket() {
+    $("div.dropdown ul.dropdown-menu").html("");
 }
