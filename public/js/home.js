@@ -65,9 +65,13 @@ function addToBasket(_name) {
         productQuantity: quantity
     };
 
+    // if basket[] is empty: add the product
     if (basket.length < 1) {
         basket.push(basketProduct);
     } else {
+        // loop through all products in basket[] and compare current product name with  basket[i] name:
+        //  if they dont match then only add the product to basket[] after looped through the entire basket[]
+        // if they do match: then only update the quantity
         for (let i = 0; i < basket.length; i++) {
             if (basketProduct.productName !== basket[i].productName) {
                 if (i === basket.length - 1) {
@@ -81,11 +85,13 @@ function addToBasket(_name) {
         }
     }
 
+    // render every basket[i] in the basket drop-down
     basket.forEach(element => {
         $("div.dropdown ul.dropdown-menu").append('<li class="dropdown-item"><pre><small>x' + element.productQuantity + '</small>    ' + element.productName + ' <button type="button"><i class="fa-solid fa-square-minus"></i></button></pre></li>');
     });
 }
 
+// coz im lazy ヾ(＠⌒ー⌒＠)ノ
 function print(_log) {
     console.log(_log);
 }
