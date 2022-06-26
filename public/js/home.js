@@ -20,11 +20,10 @@ request.send();
 request.onload = function () {
     if (request.status === 200) {
 
-        // Product comes with:  Value Weight Length Width Height delivery-cost
-        // request returning JSON {productName: {data above}}
+        // Product comes with:  itemName, value, deliveryCost
+        // request returning JSON {itemName: {data above}}
 
         productCollection = JSON.parse(request.response);
-
 
         var addToBasketButtonsMap = $('.btn_addtoBasket').map(function () {
 
@@ -34,7 +33,6 @@ request.onload = function () {
 
                 console.log($(this).attr("name") + " was clicked");
                 const product_name = $(this).attr("name");
-                console.log(productCollection[product_name]);
                 addToBasket(this, product_name);
             });
 
