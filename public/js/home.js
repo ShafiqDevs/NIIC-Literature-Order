@@ -71,9 +71,7 @@ function setupQuantityInput(_productname) {
 }
 
 function getQuantity(_productname) {
-    const quantityInputElement = $('input.' + _productname + '');
-    const quantityInput = $(quantityInputElement).text();
-
+    return $('input.' + _productname + '').val();
 }
 
 function addToBasket(senderBtn, _productname) {
