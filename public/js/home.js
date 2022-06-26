@@ -27,15 +27,21 @@ request.onload = function () {
 
 
         var addToBasketButtonsMap = $('.btn_addtoBasket').map(function () {
-            
+
+            const product_name = $(this).attr("name");
+
             $(this).on("click", function () {
 
-                console.log($(this).attr("name")+" was clicked");
+                console.log($(this).attr("name") + " was clicked");
                 const product_name = $(this).attr("name");
                 console.log(productCollection[product_name]);
-                addToBasket(this,product_name);
+                addToBasket(this, product_name);
             });
+
+            setupQuantityInput(product_name);
         });
+
+
 
     }
 
@@ -47,15 +53,40 @@ request.onerror = function () {
 };
 
 
+
+
 //-------------------------------- Functions -------------------------------------------//
 
-function addToBasket(senderBtn, _productname){
-    $($('div.card div.'+_productname)).append('<button type="button" class="removeProduct" data-name="'+_productname+'">remove '+_productname+'</button>');
+
+function setupQuantityInput(_productname) {
+    $('input.' + _productname + '').change(function (e) {
+        e.preventDefault();
+        const value = $(this).val();
+        if (value > 0) {
+            $('button.btn_addtoBasket[name="' + _productname + '"]').prop("disabled", false);
+        } else {
+            $('button.btn_addtoBasket[name="' + _productname + '"]').prop("disabled", true);
+        }
+    });
+}
+
+function getQuantity(_productname) {
+    const quantityInputElement = $('input.' + _productname + '');
+    const quantityInput = $(quantityInputElement).text();
+
+}
+
+function addToBasket(senderBtn, _productname) {
+
+
+    const cartItemTag = '<li class="cartItem"><div class="row p-2"><div class="col-2">qnt</div><div class="col-5"><h6>' + _productname + '</h6></div><div class="col-5"><button class="removeCartItem" type="button" data-name="' + _productname + '">remove</button></div></div></li>';
+
+    $($('ul.shoppingCart')).append(cartItemTag);
     setupRemoveProductBtn(_productname);
 }
 
-function setupRemoveProductBtn(_productname){
-    $('button.removeProduct[data-name="'+_productname+'"]').on("click", function () {
+function setupRemoveProductBtn(_productname) {
+    $('button.removeProduct[data-name="' + _productname + '"]').on("click", function () {
         $(this).remove();
     });
 }

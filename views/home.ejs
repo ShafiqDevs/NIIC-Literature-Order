@@ -39,8 +39,18 @@
                     data-bs-toggle="dropdown" aria-expanded="false">
                     Basket <span><i class="fa-solid fa-basket-shopping"></i></span>
                 </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <!-- basket items will be added via jq in home.js - NOTE: this could change at a lalter commit -->
+
+                <ul class="dropdown-menu shoppingCart container" aria-labelledby="dropdownMenuButton1">
+                    <h5 class="text-center">Your Shopping Cart</h3>
+                        <!-- basket items will be added via jq in home.js - NOTE: this could change at a lalter commit -->
+                        <!-- <li class="cartItem">
+                            <div class="row p-2">
+                               <div class="col-2">x6</div>
+                               <div class="col-5"><h6>polishQuran</h6></div>
+                               <div class="col-5"><button class="removeCartItem" type="button" data-name="xxx">remove</button></div>
+                            </div>
+                        </li> -->
+
                 </ul>
             </div>
         </div>
@@ -70,9 +80,9 @@
                                 <div class="card-footer polishQuran">
                                     <form action="/addToBasket" method="post">
                                         <input class=" polishQuran mb-1 me-3" type="number" name="itemQuantity" id=""
-                                            max="10" min="1">
-                                        <button class="btn_addtoBasket btn btn-primary" type="button"
-                                            name="polishQuran">add to basket</button>
+                                            max="10" min="0">
+                                        <button class="btn_addtoBasket btn btn-primary btnd" type="button"
+                                            name="polishQuran" disabled>add to basket</button>
                                     </form>
                                 </div>
                             </div>
@@ -98,9 +108,9 @@
                                 <div class="card-footer englishQuran">
                                     <form>
                                         <input class=" englishQuran mb-1 me-3" type="number" name="itemQuantity" id=""
-                                            max="10" min="1">
+                                            max="10" min="0">
                                         <button class="btn_addtoBasket btn btn-primary" type="button"
-                                            name="englishQuran">add to basket</button>
+                                            name="englishQuran" disabled>add to basket</button>
 
                                     </form>
                                 </div>

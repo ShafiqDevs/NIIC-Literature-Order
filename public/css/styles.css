@@ -1,31 +1,51 @@
-body
-{
+body {
     color: black;
 }
 
 
-.nav-link
-{
+.nav-link {
     color: orange;
 }
 
 
-.sectionDefaultPaddings
-{
+.sectionDefaultPaddings {
     padding: 35px 25px;
 }
-.headingDefaultPaddings
-{
+
+.headingDefaultPaddings {
     padding: 20px;
 }
 
-.me-extra
-{
+.me-extra {
     margin-right: 10rem;
 }
 
-.midImgSize
-{
+.midImgSize {
     height: 150px;
     width: 150px;
+}
+
+.shoppingCart_empty {
+    background-image: url(https://www.freepnglogos.com/uploads/shopping-cart-png/shopping-cart-svg-png-icon-download-28.png);
+    background-size: 80%;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 400px;
+
+    background-color: rgb(244, 244, 244);
+
+    border-color: orange;
+    border-width: 2px;
+}
+
+.shoppingCart {
+
+    height: 400px;
+
+    background-color: rgb(244, 244, 244);
+
+    border-color: orange;
+    border-width: 2px;
+
+    
 }
