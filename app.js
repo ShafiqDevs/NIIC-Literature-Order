@@ -34,7 +34,7 @@ const polishQuran = {
     deliveryCost: 8.2
 };
 
-const EnglishQuran = {
+const englishQuran = {
 
     vlaue: 70,
     weight: 15,
@@ -51,7 +51,7 @@ const EnglishQuran = {
 // NOTE: this collection will be added later as a db with mongoose
 const quranCollection = {
     polishQuran,
-    EnglishQuran
+    englishQuran
 };
 
 
