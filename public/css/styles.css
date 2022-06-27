@@ -38,9 +38,12 @@ body {
     border-width: 2px;
 }
 
+
 .shoppingCart {
 
     height: 400px;
+    width: fit-content;
+    min-width: 270px;
 
     background-color: rgb(244, 244, 244);
 

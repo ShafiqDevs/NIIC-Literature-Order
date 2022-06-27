@@ -8,7 +8,7 @@ const myRoutes = {
 };
 
 let productCollection;
-const basket = [];
+let shoppingBasket = {};
 
 const request = new XMLHttpRequest();
 
@@ -31,8 +31,8 @@ request.onload = function () {
 
             $(this).on("click", function () {
 
-                console.log("reading from DB: "+productCollection[product_name].itemName + " was clicked");
-                addToBasket(this, product_name);
+                console.log("reading from DB: " + productCollection[product_name].itemName + " was clicked");
+                addToBasket(product_name);
             });
 
             setupQuantityInput(product_name);
@@ -71,17 +71,63 @@ function getQuantity(_productname) {
     return $('input.' + _productname + '').val();
 }
 
-function addToBasket(senderBtn, _productname) {
+function addToBasket(_productname) {
+
+    // toggle the empty cart design according to number of items in basket: if more than 0 items: do nothing else toggle .shoppingCart_empty
+    if (Object.keys(shoppingBasket).length > 0) {} else $('ul.shoppingCart').toggleClass("shoppingCart_empty");
+
+    // if item already in shoppingBasket: update qntity else add item
+    if (_productname in shoppingBasket) {
+        shoppingBasket[_productname].quantity = (parseInt(shoppingBasket[_productname].quantity) + parseInt(getQuantity(_productname)));
+        $('div [data-qnt="' + _productname + '"]').text("x" + shoppingBasket[_productname].quantity);
+        $('div [data-cost="' + _productname + '"]').text("£" +
+            (parseFloat(shoppingBasket[_productname].value) + parseFloat(shoppingBasket[_productname].deliveryCost)) *
+            shoppingBasket[_productname].quantity);
+    } else {
+        // add item to shoppingBasket obj
+        shoppingBasket[_productname] = {
+            itemName: productCollection[_productname].itemName,
+            value: productCollection[_productname].value,
+            deliveryCost: productCollection[_productname].deliveryCost,
+            quantity: parseInt(getQuantity(_productname))
+        };
+
+        /// add <li> to shopping cart
+        const cartItemTag = '<li class="cartItem"><div class="row p-2"><div class="col-2"data-qnt=' + _productname + '>' + shoppingBasket[_productname].quantity + '</div><div class="col-3" data-cost=' + _productname + '>£' + (shoppingBasket[_productname].value + shoppingBasket[_productname].deliveryCost) * shoppingBasket[_productname].quantity + '</div><div class="col-5"><h6>' + _productname + '</h6></div><div class="col-2"><button class="removeCartItem" type="button" data-name="' + _productname + '">-</button></div></div></li>';
 
 
-    const cartItemTag = '<li class="cartItem"><div class="row p-2"><div class="col-2">qnt</div><div class="col-5"><h6>' + _productname + '</h6></div><div class="col-5"><button class="removeCartItem" type="button" data-name="' + _productname + '">remove</button></div></div></li>';
 
-    $($('ul.shoppingCart')).append(cartItemTag);
+
+        $('ul.shoppingCart').append(cartItemTag);
+
+
+    }
+
+
+
+
+
+
+
     setupRemoveProductBtn(_productname);
 }
 
 function setupRemoveProductBtn(_productname) {
-    $('button.removeProduct[data-name="' + _productname + '"]').on("click", function () {
-        $(this).remove();
+    console.log("entered line 85: " + _productname);
+
+
+
+    $('button.removeCartItem[data-name="' + _productname + '"]').on("click", function () {
+
+        // to remove the <li> which is the grand parent of the button.removeCartItem
+        $(this).parent().parent().remove();
+
+        console.log("line 89: " + this);
+        removeFromBasket(_productname);
     });
+}
+
+function removeFromBasket(_productname) {
+    delete shoppingBasket[_productname];
+    if (Object.keys(shoppingBasket).length < 1) $('ul.shoppingCart').toggleClass("shoppingCart_empty");
 }
