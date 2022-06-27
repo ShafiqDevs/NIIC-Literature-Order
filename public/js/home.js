@@ -31,8 +31,7 @@ request.onload = function () {
 
             $(this).on("click", function () {
 
-                console.log($(this).attr("name") + " was clicked");
-                const product_name = $(this).attr("name");
+                console.log("reading from DB: "+productCollection[product_name].itemName + " was clicked");
                 addToBasket(this, product_name);
             });
 
