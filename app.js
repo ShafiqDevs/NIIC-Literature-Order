@@ -173,7 +173,6 @@ function getQuranProducts(_res, _quranCollection) {
                 value: element.value,
                 deliveryCost: element.deliveryCost
             };
-            temp.push(element);
         });
         _res.send(reslt);
     });
