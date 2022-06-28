@@ -51,6 +51,10 @@ request.onerror = function () {
 
 
 
+$('button[name="checkout-clear"]').on("click", function () {
+    clearBasket();
+});
+
 
 //-------------------------------- Functions -------------------------------------------//
 
@@ -74,7 +78,13 @@ function getQuantity(_productname) {
 function addToBasket(_productname) {
 
     // toggle the empty cart design according to number of items in basket: if more than 0 items: do nothing else toggle .shoppingCart_empty
-    if (Object.keys(shoppingBasket).length > 0) {} else $('ul.shoppingCart').toggleClass("shoppingCart_empty");
+    if (Object.keys(shoppingBasket).length > 0) {
+
+    } else {
+        $('button[name="checkout"]').toggleClass("hidden");
+        $('button[name="checkout-clear"]').toggleClass("hidden");
+        $('ul.shoppingCart').toggleClass("shoppingCart_empty");
+    }
 
     // if item already in shoppingBasket: update qntity else add item
     if (_productname in shoppingBasket) {
@@ -98,7 +108,7 @@ function addToBasket(_productname) {
 
 
 
-        $('ul.shoppingCart').append(cartItemTag);
+        $('ul.shoppingCart div.itemList').append(cartItemTag);
 
 
     }
@@ -129,5 +139,18 @@ function setupRemoveProductBtn(_productname) {
 
 function removeFromBasket(_productname) {
     delete shoppingBasket[_productname];
-    if (Object.keys(shoppingBasket).length < 1) $('ul.shoppingCart').toggleClass("shoppingCart_empty");
+    if (Object.keys(shoppingBasket).length < 1) {
+        $('button[name="checkout"]').toggleClass("hidden");
+        $('button[name="checkout-clear"]').toggleClass("hidden");
+        $('ul.shoppingCart').toggleClass("shoppingCart_empty");
+    }
+}
+
+function clearBasket() {
+    shoppingBasket = {};
+    $('li.cartItem').remove();
+
+    $('button[name="checkout"]').toggleClass("hidden");
+    $('button[name="checkout-clear"]').toggleClass("hidden");
+    $('ul.shoppingCart').toggleClass("shoppingCart_empty");
 }

@@ -67,7 +67,7 @@ const orderSchema = new mongoose.Schema({
         type: String,
         required: false
     },
-    country1: {
+    County: {
         type: String,
         required: false
     },
@@ -75,7 +75,7 @@ const orderSchema = new mongoose.Schema({
         type: String,
         required: false
     },
-    Country2: {
+    Country: {
         type: String,
         required: false
     },

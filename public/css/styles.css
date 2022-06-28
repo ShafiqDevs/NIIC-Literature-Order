@@ -25,6 +25,11 @@ body {
     width: 150px;
 }
 
+
+.hidden{
+    visibility: hidden;
+}
+
 .shoppingCart_empty {
     background-image: url(https://www.freepnglogos.com/uploads/shopping-cart-png/shopping-cart-svg-png-icon-download-28.png);
     background-size: 80%;
@@ -36,6 +41,15 @@ body {
 
     border-color: orange;
     border-width: 2px;
+}
+
+.test{
+    height: 200px;
+}
+
+.checkoutDiv{
+    position: absolute;
+    bottom: 0;
 }
 
 
