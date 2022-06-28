@@ -104,13 +104,7 @@ const quranSchema = new mongoose.Schema({
 const literatureOrder = mongoose.model("literatureOrder", orderSchema);
 const quranCollection = mongoose.model("quranCollection", quranSchema);
 
-
-
-
-
-
-
-
+//------------------------------ Routes ------------------------------------//
 app.get(myRoutes.home, function (req, res) {
     res.render("home");
 });
