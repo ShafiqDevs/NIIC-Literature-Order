@@ -22,33 +22,6 @@ const myRoutes = {
 
 
 
-// NOTE: objects below will be represented as db documents in mongoose at a later commit
-// Value	Weight	Length	Width	Height	delivery-cost
-
-const polishQuran = {
-
-    vlaue: 60,
-    weight: 10,
-    length: 30,
-    width: 24,
-    height: 25,
-    deliveryCost: 8.2
-};
-
-const englishQuran = {
-
-    vlaue: 70,
-    weight: 15,
-    length: 35,
-    width: 25,
-    height: 25,
-    deliveryCost: 8.2
-};
-
-
-
-
-
 mongoose.connect(process.env.dbroute);
 
 
