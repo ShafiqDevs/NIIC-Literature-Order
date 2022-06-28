@@ -22,11 +22,6 @@ const myRoutes = {
 
 
 
-
-
-
-
-
 mongoose.connect(process.env.dbroute);
 
 
