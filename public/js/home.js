@@ -55,6 +55,16 @@ $('button[name="checkout-clear"]').on("click", function () {
     clearBasket();
 });
 
+$('button[name="checkout"]').on("click", function () {
+
+    $("#checkoutSection").toggleClass("hidden");
+
+    $('html,body').animate({
+            scrollTop: $("#checkoutSection").offset().top
+        },
+        'fast');
+});
+
 
 //-------------------------------- Functions -------------------------------------------//
 

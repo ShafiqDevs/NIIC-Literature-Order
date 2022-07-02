@@ -27,7 +27,7 @@ body {
 
 
 .hidden{
-    visibility: hidden;
+    display: none;
 }
 
 .shoppingCart_empty {
