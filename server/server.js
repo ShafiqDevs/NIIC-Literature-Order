@@ -4,6 +4,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const { val } = require("jshint/src/options");
 const dotenv = require("dotenv").config();
 
 
@@ -15,7 +16,7 @@ app.use(bodyParser.urlencoded({
 app.use(express.static("public"));
 
 const myRoutes = {
-    home: "/",
+    home: "/home",
     checkout: "/checkout",
     getProducts: "/getProducts"
 };
@@ -106,6 +107,7 @@ const quranCollection = mongoose.model("quranCollection", quranSchema);
 
 //------------------------------ Routes ------------------------------------//
 app.get(myRoutes.home, function (req, res) {
+    //res.json([{age: 23}, {age: 18}, {age:3}]);
     res.render("home");
 });
 
@@ -116,8 +118,8 @@ app.get(myRoutes.getProducts, function (req, res) {
 
 });
 
-app.listen(3000, function () {
-    console.log("server stared on port 3000");
+app.listen(3001, function () {
+    console.log("server stared on port 3001");
 });
 
 
@@ -125,17 +127,25 @@ app.listen(3000, function () {
 
 function getQuranProducts(_res, _quranCollection) {
 
-    let reslt = {};
+    let reslt = [];
 
     _quranCollection.find({}, function (err, docs) {
-        docs.forEach(element => {
-            // combining all db items into one object => object: {itemName: {itemName,value,deliveryCost} }
-            reslt[element.itemName] = {
-                itemName: element.itemName,
-                value: element.value,
-                deliveryCost: element.deliveryCost
-            };
-        });
+        //console.log(docs);
+        // docs.forEach(element => {
+            
+        //     // combining all db items into one object => object: {itemName: {itemName,value,deliveryCost} }
+        //     reslt[element.itemName] = {
+        //         itemName: element.itemName,
+        //         value: element.value,
+        //         deliveryCost: element.deliveryCost
+        //     };
+        // });
+        docs.map((value,index) =>{
+
+
+            reslt.push(value);
+        })
+        //console.log(reslt);
         _res.send(reslt);
     });
 
