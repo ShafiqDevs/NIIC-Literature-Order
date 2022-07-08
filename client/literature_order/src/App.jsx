@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react'
 import Product from "./components/Product"
-import BrandBar from "./components/BrandBar"
 import CircularIndeterminate from "./components/CircularIndeterminate"
 
 function App() {
@@ -19,7 +18,6 @@ function App() {
 
   return (
     <div>
-    <BrandBar/>
       <h1>React App</h1>
       <div className='container'>
         <div className='row'>
