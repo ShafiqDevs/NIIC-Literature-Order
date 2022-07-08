@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({
 app.use(express.static("public"));
 
 const myRoutes = {
-    home: "/home",
+    home: "/",
     checkout: "/checkout",
     getProducts: "/getProducts"
 };
@@ -107,7 +107,6 @@ const quranCollection = mongoose.model("quranCollection", quranSchema);
 
 //------------------------------ Routes ------------------------------------//
 app.get(myRoutes.home, function (req, res) {
-    //res.json([{age: 23}, {age: 18}, {age:3}]);
     res.render("home");
 });
 
