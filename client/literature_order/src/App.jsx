@@ -18,7 +18,7 @@ function App() {
 
   return (
     <div>
-    <BrandBar/>
+    <BrandBar cartItemCount = {1}/>
       <h1>React App</h1>
       <div className='container'>
         <div className='row'>
