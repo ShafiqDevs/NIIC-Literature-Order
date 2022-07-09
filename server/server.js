@@ -143,6 +143,7 @@ function getQuranProducts(_res, _quranCollection) {
 
 
             reslt.push(value);
+            console.log(value);
         })
         //console.log(reslt);
         _res.send(reslt);

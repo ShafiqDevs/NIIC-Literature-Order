@@ -1,4 +1,8 @@
+import CartItem from "./CartItem";
+
 export default function ShoppingCart(props) {
+  let cartItems = props.cartItems;
+
   return (
     <div>
       <h4 className="d-flex justify-content-between align-items-center mb-3">
@@ -6,15 +10,18 @@ export default function ShoppingCart(props) {
         <span className="badge badge-secondary badge-pill">3</span>
       </h4>
       <ul className="list-group mb-3">
-        <li className="list-group-item d-flex justify-content-between lh-condensed">
-          <div>
-            <h6 className="my-0">Product name</h6>
-            <small className="text-muted">Brief description</small>
-          </div>
-          <span className="text-muted">$12</span>
-        </li>
-        &gt;
+        {cartItems.map((value, index) => {
+          return (
+            <CartItem
+              key={index}
+              productName={value.productName}
+              quantity={value.quantity}
+              totalPrice={value.totalPrice}
+            />
+          );
+        })}
       </ul>
+      <div className=""></div>
     </div>
   );
 }

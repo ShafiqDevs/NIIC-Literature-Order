@@ -1,16 +1,18 @@
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
+import Alert from "@mui/material/Alert";
+import Stack from "@mui/material/Stack";
 import { useState } from "react";
 import Input from "./Input";
 
 export default function Product(props) {
   const [quantity, setQuantity] = useState(0);
+  let quantityAlert = false;
 
   function handleChange(event) {
     const val = event.target.value;
     setQuantity(val);
   }
-  
 
   return (
     <div className="col-lg-4">
@@ -37,13 +39,25 @@ export default function Product(props) {
                 Max="10"
                 Min="0"
               />
+              {quantityAlert? <div class="alert alert-danger" role="alert">
+                A simple danger alert—check it out!
+              </div>: null}
 
               <Button
                 onClick={(e) => {
-                  console.log("clicked mui Btn");
+                  if (quantity > 10) {
+                    if(!window.confirm(`You are ordering ${quantity} boxes.\nDo you want to proceed?`)) return;
+                  }
+
+                  const productItem = {
+                    productName: props.itemName,
+                    quantity: parseInt(quantity),
+                    totalPrice: props.totalPrice,
+                  };
+                  props.onAdd(e, productItem);
                 }}
                 variant="contained"
-                disabled={quantity < 1 ? true : null}
+                disabled={true && quantity < 1}
               >
                 Add
               </Button>
