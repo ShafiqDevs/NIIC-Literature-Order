@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, findDOMNode } from "react";
 import Product from "./components/Product";
 import BrandBar from "./components/BrandBar";
+import ShoppingCart from "./components/ShoppingCart";
 import style from "./App.css";
-
+import $ from "jquery";
 
 function App() {
   const [backendData, setBackendData] = useState([]);
@@ -16,18 +17,23 @@ function App() {
       });
   }, []);
 
-  // function toggleProductContainer(event) {
-  //   const productContainer = $(".product_Container");
-  //   $(productContainer).toggleClass("col-md-8");
-  // }
+  function toggleProductContainer() {
+    console.log("clicked cart");
+    const productContainer = $(".product_Container");
+    const cartContainer = $(".cart_Container");
+    $(productContainer).toggleClass("col-md-8");
+    $(cartContainer).toggleClass("hidden");
+  }
 
   return (
     <div>
-      <BrandBar cartItemCount={0} />
+      <BrandBar cartIconClick={toggleProductContainer} cartItemCount={0} />
       <div className="container-fluid">
-        <div className="row d-flex flex-row product_cart_Container ">
-          <div className="col-md-4 order-md-2 cart_Container  "></div>
-          <div className="col-md-8 order-md-1  product_Container">
+        <div className="row d-flex flex-row product_cart_Container mt-5">
+          <div className="col-md-4 order-md-2 cart_Container hidden">
+            <ShoppingCart />
+          </div>
+          <div className=" order-md-1  product_Container">
             <div className="row">
               {backendData.map((value, index) => {
                 return (

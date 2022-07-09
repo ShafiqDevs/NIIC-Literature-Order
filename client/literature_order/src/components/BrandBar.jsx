@@ -1,5 +1,5 @@
 import { useState } from "react";
-import ShoppingCart from "./ShoppingCart";
+import ShoppingCart from "./ShoppingCartIcon";
 
 export default function BrandBar(props) {
   return (
@@ -9,7 +9,7 @@ export default function BrandBar(props) {
           <a className="navbar-brand" href="/">
             <img src="../images/niic.png" width={150} height={150} />
           </a>
-          <ShoppingCart cartItemCount={props.cartItemCount} />
+          <ShoppingCart onClick={props.cartIconClick} cartItemCount={props.cartItemCount} />
         </div>
       </nav>
     </div>

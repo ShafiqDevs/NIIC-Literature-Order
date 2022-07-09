@@ -1,52 +1,20 @@
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import Badge from "@mui/material/Badge";
-import Stack from "@mui/material/Stack";
-import Box from "@mui/material/Box";
-import Paper from "@mui/material/Paper";
-import { useState } from "react";
-
 export default function ShoppingCart(props) {
-  const [isHovered, setisHovered] = useState(false);
-
-  const defaultStyle = {
-    color: props.cartItemCount > 0 ? "rgb(201, 116, 0)" : "rgb(150, 150, 150)",
-    fontSize: 40,
-  };
-
-  const hoveredStyle = {
-    color: props.cartItemCount > 0 ? "rgb(255, 147, 0)" : "rgb(255, 255, 255)",
-    fontSize: 40,
-  };
-
   return (
     <div>
-      <Badge badgeContent={props.cartItemCount} color="success">
-        <ShoppingCartIcon
-          onMouseEnter={(e) => {
-            setisHovered(true);
-          }}
-          onMouseLeave={(e) => {
-            setisHovered(false);
-          }}
-          onClick={(event) => {
-            console.log("clicked cart");
-          }}
-          sx={isHovered ? hoveredStyle : defaultStyle}
-        />
-      </Badge>
-
-      <Box
-        sx={{
-          display: "flex",
-          flexWrap: "wrap",
-          "& > :not(style)": {
-            m: 1,
-            width: 128,
-            height: 128,
-          },
-        }}
-      >
-      </Box>
+      <h4 className="d-flex justify-content-between align-items-center mb-3">
+        <span className="text-muted">Your cart</span>
+        <span className="badge badge-secondary badge-pill">3</span>
+      </h4>
+      <ul className="list-group mb-3">
+        <li className="list-group-item d-flex justify-content-between lh-condensed">
+          <div>
+            <h6 className="my-0">Product name</h6>
+            <small className="text-muted">Brief description</small>
+          </div>
+          <span className="text-muted">$12</span>
+        </li>
+        &gt;
+      </ul>
     </div>
   );
 }
