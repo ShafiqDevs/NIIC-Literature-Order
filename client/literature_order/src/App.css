@@ -1,0 +1,17 @@
+.product_cart_Container{
+    background-color: orange;
+    aspect-ratio: 9/16;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+.product_Container{
+    background-color: blue;
+
+}
+.cart_Container{
+    background-color: yellow;
+
+}
