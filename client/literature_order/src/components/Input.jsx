@@ -1,5 +1,3 @@
-import { useState } from "react";
-import $ from "jquery";
 
 export default function Input(props) {
 

@@ -1,20 +1,18 @@
 import CartItem from "./CartItem";
 import Button from "./Button";
-import { useState } from "react";
 
 export default function ShoppingCart(props) {
-  var bill = 0;
+  let bill = 0;
 
   function removeItem(e, id) {
     props.onRemoveItem(e, id);
   }
 
-  function clearCart(e) {
-    props.clearCart();
-  }
-
   function updateBill(price) {
     bill += price;
+    bill =
+      Math.round((bill + Number.EPSILON) * 100) /
+      100;
   }
   function showCartButtons() {
     if (props.cartItems.length > 0) {
@@ -44,7 +42,7 @@ export default function ShoppingCart(props) {
       </h4>
       <ul className="list-group mb-3">
         {props.cartItems.map((value, index) => {
-          updateBill(value.totalPrice);
+          updateBill(value.totalPrice * value.quantity);
           return (
             <CartItem
               key={index}

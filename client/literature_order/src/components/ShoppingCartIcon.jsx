@@ -1,8 +1,6 @@
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Badge from "@mui/material/Badge";
-import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
-import Paper from "@mui/material/Paper";
 import { useState } from "react";
 
 export default function ShoppingCart(props) {

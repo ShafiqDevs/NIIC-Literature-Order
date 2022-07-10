@@ -1,10 +1,9 @@
-import React, { useEffect, useState, findDOMNode } from "react";
+import React, { useEffect, useState } from "react";
 import Product from "./components/Product";
 import BrandBar from "./components/BrandBar";
 import ShoppingCart from "./components/ShoppingCart";
 import style from "./App.css";
 import $ from "jquery";
-import { useScrollTrigger } from "@mui/material";
 
 function App() {
   const [backendData, setBackendData] = useState([]);
