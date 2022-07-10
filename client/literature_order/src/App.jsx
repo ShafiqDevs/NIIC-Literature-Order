@@ -15,29 +15,46 @@ function App() {
       .then((respose) => respose.json())
       .then((data) => {
         setBackendData(data);
-        console.log(data);
+        
       });
   }, []);
 
   function toggleProductContainer() {
-    console.log("clicked cart");
     const productContainer = $(".product_Container");
     const cartContainer = $(".cart_Container");
     $(productContainer).toggleClass("col-md-8");
     $(cartContainer).toggleClass("hidden");
   }
   function addProductToCart(e, product) {
-    setCartItems((prev) => {return [...prev, product]});
-    console.log("product: ",product,cartItems);
+    setCartItems((prev) => {
+      return [...prev, product];
+    });
+  }
+  function removeItem(e, id) {
+    setCartItems((prev) => {
+      return cartItems.filter((item, index) => {
+        return id !== index;
+      });
+    });
+  }
+  function clearCart() {
+    setCartItems([]);
   }
 
   return (
     <div>
-      <BrandBar cartIconClick={toggleProductContainer} cartItemCount={cartItems.length} />
+      <BrandBar
+        cartIconClick={toggleProductContainer}
+        cartItemCount={cartItems.length}
+      />
       <div className="container-fluid">
         <div className="row d-flex flex-row product_cart_Container mt-5">
-          <div className="col-md-4 order-md-2 cart_Container hidden">
-            <ShoppingCart cartItems ={cartItems} />
+          <div className="col-md-4 order-md-2 cart_Container border border-primary hidden">
+            <ShoppingCart
+              cartItems={cartItems}
+              onRemoveItem={removeItem}
+              clearCart={clearCart}
+            />
           </div>
           <div className=" order-md-1  product_Container">
             <div className="row">

@@ -4,7 +4,9 @@
     width: 100%;
     margin-left: auto;
     margin-right: auto;
-
+}
+.cart_Container{
+    border-radius: 1.6%;
 }
 
 

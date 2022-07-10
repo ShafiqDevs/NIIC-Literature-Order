@@ -39,14 +39,21 @@ export default function Product(props) {
                 Max="10"
                 Min="0"
               />
-              {quantityAlert? <div class="alert alert-danger" role="alert">
-                A simple danger alert—check it out!
-              </div>: null}
+              {quantityAlert ? (
+                <div className="alert alert-danger" role="alert">
+                  A simple danger alert—check it out!
+                </div>
+              ) : null}
 
               <Button
                 onClick={(e) => {
                   if (quantity > 10) {
-                    if(!window.confirm(`You are ordering ${quantity} boxes.\nDo you want to proceed?`)) return;
+                    if (
+                      !window.confirm(
+                        `You are ordering ${quantity} boxes.\nDo you want to proceed?`
+                      )
+                    )
+                      return;
                   }
 
                   const productItem = {
