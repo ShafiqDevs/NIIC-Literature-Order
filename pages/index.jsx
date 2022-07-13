@@ -1,5 +1,8 @@
 import Head from "next/head";
 import Image from "next/image";
+import mongoose from "mongoose";
+import connectMongo from "../utils/connectMongo";
+import quranCollection from "../models/quranCollection";
 import styles from "../styles/Home.module.css";
 import BrandBar from "../components/BrandBar";
 import Product from "../components/Product";
@@ -7,9 +10,7 @@ import ShoppingCart from "../components/ShoppingCart";
 import $ from "jquery";
 import React, { useEffect, useState } from "react";
 
-export default function Home() {
-
-  const [backendData, setBackendData] = useState([]);
+export default function Home({backendData}) {
   const [cartItems, setCartItems] = useState([]);
 
   function toggleProductContainer() {
@@ -34,7 +35,6 @@ export default function Home() {
     setCartItems([]);
   }
 
-
   return (
     <div>
       <Head>
@@ -57,8 +57,7 @@ export default function Home() {
           </div>
           <div className=" order-md-1  product_Container">
             <div className="row">
-            
-            {backendData.map((product, index) => {
+              {backendData.map((product, index) => {
                 return (
                   <Product
                     key={index}
@@ -81,3 +80,25 @@ export default function Home() {
     </div>
   );
 }
+
+export const getServerSideProps = async () => {
+  try {
+    console.log("CONNECTING TO MONGO");
+    await connectMongo();
+    console.log("CONNECTED TO MONGO");
+
+    console.log("FETCHING DOCUMENTS");
+    const docs = await quranCollection.find({});
+    console.log("FETCHED DOCUMENTS");
+    console.log(docs);
+
+    return {
+      props: {
+        backendData: JSON.parse(JSON.stringify(docs)),
+      },
+    };
+  } catch (error) {
+    console.log(error);
+    return { notFound: true };
+  }
+};
