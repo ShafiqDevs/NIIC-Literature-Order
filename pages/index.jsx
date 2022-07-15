@@ -9,8 +9,12 @@ import Product from "../components/Product";
 import ShoppingCart from "../components/ShoppingCart";
 import $ from "jquery";
 import React, { useEffect, useState } from "react";
+import Router from "next/router";
+import Link from "next/link";
+import { Checkout } from "../checkout";
+import CustomerBilling from "../components/BillingForm";
 
-export default function Home({backendData}) {
+export default function Home({ backendData }) {
   const [cartItems, setCartItems] = useState([]);
 
   function toggleProductContainer() {
@@ -34,6 +38,25 @@ export default function Home({backendData}) {
   function clearCart() {
     setCartItems([]);
   }
+  function checkout(billingForm) {
+    console.log("cartItems: ", cartItems);
+    const lineItemsArray = cartItems.map((value) => {
+      return { price: value.strip_pid, quantity: value.quantity };
+    });
+    Checkout({ lineItems: lineItemsArray });
+  }
+  // function viewBillignForm(){
+  //   customer_billing
+  // }
+  // function viewCart() {
+  //   console.log("cartItems: ", cartItems);
+  //   // Router.push({pathname: "/cart", query: {cartItems:
+  //   // JSON.stringify(cartItems)}});
+  //   const lineItemsArray = cartItems.map((value) => {
+  //     return { price: value.strip_pid, quantity: value.quantity };
+  //   });
+  //   checkout({ lineItems: lineItemsArray });
+  // }
 
   return (
     <div>
@@ -53,6 +76,7 @@ export default function Home({backendData}) {
               cartItems={cartItems}
               onRemoveItem={removeItem}
               clearCart={clearCart}
+              // viewBillingForm={}
             />
           </div>
           <div className=" order-md-1  product_Container">
@@ -65,6 +89,7 @@ export default function Home({backendData}) {
                     onAdd={addProductToCart}
                     itemName={product.itemName}
                     totalPrice={product.deliveryCost + product.value}
+                    strip_pid={product.strip_pid}
                     text={
                       "This item contains a box of 16 Price: £" +
                       (product.deliveryCost + product.value)
@@ -77,6 +102,9 @@ export default function Home({backendData}) {
           </div>
         </div>
       </div>
+      <section id="customer_billing">
+        <CustomerBilling checkout={checkout} />
+      </section>
     </div>
   );
 }

@@ -25,7 +25,7 @@ export default function ShoppingCart(props) {
             text="Clear Cart"
             whenClicked={props.clearCart}
           />
-          <Button classes="btn btn-outline-primary" text="Checkout" />
+          <Button classes="btn btn-outline-primary" text="Checkout" whenClicked={props.viewBillingForm} />
         </div>
       );
     }

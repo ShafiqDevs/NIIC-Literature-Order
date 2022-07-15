@@ -57,6 +57,7 @@ export default function Product(props) {
                     productName: props.itemName,
                     quantity: parseInt(quantity),
                     totalPrice: props.totalPrice,
+                    strip_pid: props.strip_pid,
                   };
                   props.onAdd(e, productItem);
                 }}
