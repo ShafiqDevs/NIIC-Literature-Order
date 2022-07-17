@@ -15,7 +15,7 @@ import { Checkout } from "../checkout";
 import BillingForm from "../components/BillingForm";
 import axios from "axios";
 import { loadStripe } from "@stripe/stripe-js";
-import {NEXT_URL} from "../utils/NEXT_URL.JS";
+import NEXT_URL from "../utils/NEXT_URL.JS";
 
 export default function Home({ backendData }) {
   const [cartItems, setCartItems] = useState([]);
