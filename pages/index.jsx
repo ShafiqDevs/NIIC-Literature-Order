@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Image from "next/image";
 import mongoose from "mongoose";
-import connectMongo from "../utils/connectMongo";
+import db from "../utils/db";
 import quranCollection from "../models/quranCollection";
 import styles from "../styles/Home.module.css";
 import BrandBar from "../components/BrandBar";
@@ -12,7 +12,9 @@ import React, { useEffect, useState } from "react";
 import Router from "next/router";
 import Link from "next/link";
 import { Checkout } from "../checkout";
-import CustomerBilling from "../components/BillingForm";
+import BillingForm from "../components/BillingForm";
+import axios from "axios";
+import { loadStripe } from "@stripe/stripe-js";
 
 export default function Home({ backendData }) {
   const [cartItems, setCartItems] = useState([]);
@@ -38,25 +40,16 @@ export default function Home({ backendData }) {
   function clearCart() {
     setCartItems([]);
   }
-  function checkout(billingForm) {
-    console.log("cartItems: ", cartItems);
-    const lineItemsArray = cartItems.map((value) => {
-      return { price: value.strip_pid, quantity: value.quantity };
+  async function checkout(billingForm) {
+    //console.log("line 44:", JSON.stringify(billingForm));
+
+    const response = await axios.post(`/api/create_checkout_session`, {
+      cartItems: cartItems,
+      billingForm: billingForm
     });
-    Checkout({ lineItems: lineItemsArray });
+
+    Router.replace(response.data.checkout_session.url);
   }
-  // function viewBillignForm(){
-  //   customer_billing
-  // }
-  // function viewCart() {
-  //   console.log("cartItems: ", cartItems);
-  //   // Router.push({pathname: "/cart", query: {cartItems:
-  //   // JSON.stringify(cartItems)}});
-  //   const lineItemsArray = cartItems.map((value) => {
-  //     return { price: value.strip_pid, quantity: value.quantity };
-  //   });
-  //   checkout({ lineItems: lineItemsArray });
-  // }
 
   return (
     <div>
@@ -73,10 +66,11 @@ export default function Home({ backendData }) {
         <div className="row d-flex flex-row product_cart_Container mt-5">
           <div className="col-md-4 order-md-2 cart_Container border border-primary hidden">
             <ShoppingCart
+              classes="name"
               cartItems={cartItems}
               onRemoveItem={removeItem}
               clearCart={clearCart}
-              // viewBillingForm={}
+              checkout={checkout}
             />
           </div>
           <div className=" order-md-1  product_Container">
@@ -87,12 +81,15 @@ export default function Home({ backendData }) {
                     key={index}
                     id={index}
                     onAdd={addProductToCart}
-                    itemName={product.itemName}
+                    _id={product._id}
+                    itemName={product.item_Name}
                     totalPrice={product.deliveryCost + product.value}
-                    strip_pid={product.strip_pid}
                     text={
                       "This item contains a box of 16 Price: £" +
-                      (product.deliveryCost + product.value)
+                      (product.deliveryCost + product.value) +
+                      " includes £" +
+                      product.deliveryCost +
+                      " delivery fee"
                     }
                     mySrc="https://i.ebayimg.com/images/g/MrAAAOSwjNFfR4al/s-l500.png"
                   />
@@ -102,23 +99,40 @@ export default function Home({ backendData }) {
           </div>
         </div>
       </div>
-      <section id="customer_billing">
-        <CustomerBilling checkout={checkout} />
-      </section>
+      <section id="customer_billing"></section>
     </div>
   );
 }
 
-export const getServerSideProps = async () => {
-  try {
-    console.log("CONNECTING TO MONGO");
-    await connectMongo();
-    console.log("CONNECTED TO MONGO");
+export const getServerSideProps = async (context) => {
+  console.log("getServerSideProps() is running");
 
-    console.log("FETCHING DOCUMENTS");
-    const docs = await quranCollection.find({});
-    console.log("FETCHED DOCUMENTS");
-    console.log(docs);
+  // if we have a session_id then process it
+  if (context.query.session_id) {
+    const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+    const session = await stripe.checkout.sessions.retrieve(
+      context.query.session_id
+    );
+    if (session.payment_status === "unpaid") {
+      console.log("UNPAID!!!!!!!");
+    } else {
+      axios.post("http://localhost:3000/api/add_order", session);
+      return {
+        redirect: {
+          permanent: false,
+          destination: "/",
+        },
+        props: {},
+      };
+    }
+  }
+
+  try {
+    //console.log("CONNECTING TO MONGO");
+    await db.connect();
+    //console.log("CONNECTED TO MONGO"); console.log("FETCHING DOCUMENTS");
+    const docs = await quranCollection.find({}, "item_Name value deliveryCost");
+    console.log("FETCHED DOCUMENTS"); // fetching _id itemName value deliveryCost field from db
 
     return {
       props: {
@@ -130,3 +144,11 @@ export const getServerSideProps = async () => {
     return { notFound: true };
   }
 };
+
+async function addOrderToDB(data) {
+  await connectMongo();
+  console.log("connected to SB");
+  console.log("inserting data into DB");
+  await TestOrders.insertMany([data]);
+  console.log("done inserting????");
+}

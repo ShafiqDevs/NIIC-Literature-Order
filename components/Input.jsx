@@ -13,6 +13,7 @@ export default function Input(props) {
         value={props.myVal}
         max={props.Max}
         min={props.Min}
+        maxLength={props.maxLength}
         onInput ={e =>{"input?"}}
         onChange={(event) => {
           props.onChange(event);

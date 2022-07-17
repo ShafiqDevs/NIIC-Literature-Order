@@ -74,12 +74,12 @@ export default function CustomerBilling(props) {
   /* #endregion */
 
   return (
-    <div className="p-4">
-      <h1 className="text-primary">Information</h1>
+    <div className={props.classes}>
+      <h1 className="text-primary text-end pt-4">Information</h1>
       <form>
         <div className="row g-2 mb-2">
           {/* fName */}
-          <div className="col-md-2 form-floating">
+          <div className="col-md-6 form-floating">
             <input
               type="text"
               className="form-control"
@@ -91,7 +91,7 @@ export default function CustomerBilling(props) {
             <label htmlFor="fName">First name</label>
           </div>
           {/* lName */}
-          <div className="col-md-2 form-floating">
+          <div className="col-md-6 form-floating">
             <input
               type="text"
               className="form-control"
@@ -105,7 +105,7 @@ export default function CustomerBilling(props) {
         </div>
         <div className="row g-2 mb-2">
           {/* address */}
-          <div className="col-md-3 form-floating">
+          <div className="col-md-9 form-floating">
             <input
               type="text"
               className="form-control"
@@ -117,7 +117,7 @@ export default function CustomerBilling(props) {
             <label htmlFor="addressLine">Address line</label>
           </div>
           {/* town */}
-          <div className="col-md-1 form-floating">
+          <div className="col-md-3 form-floating">
             <input
               type="text"
               className="form-control"
@@ -131,7 +131,7 @@ export default function CustomerBilling(props) {
         </div>
         <div className="row g-2 mb-2">
           {/* county */}
-          <div className="col-md-2 form-floating">
+          <div className="col-md-6 form-floating">
             <input
               type="text"
               className="form-control"
@@ -143,7 +143,7 @@ export default function CustomerBilling(props) {
             <label htmlFor="County">County</label>
           </div>
           {/* post code */}
-          <div className="col-md-1 form-floating">
+          <div className="col-md-3 form-floating">
             <input
               type="text"
               className="form-control"
@@ -155,13 +155,14 @@ export default function CustomerBilling(props) {
             <label htmlFor="postcode">Post code</label>
           </div>
           {/* country */}
-          <div className="col-md-1 form-floating">
+          <div className="col-md-3 form-floating">
             <input
               type="text"
               className="form-control"
               id="country"
               placeholder="name@example.com"
               value={billingForm.country}
+              maxLength= {2}
               onChange={(e) => countryChange(e)}
             />
             <label htmlFor="Country">Country</label>
@@ -169,7 +170,7 @@ export default function CustomerBilling(props) {
         </div>
         <div className="row g-2 mb-2">
           {/* phone */}
-          <div className="col-md-2 form-floating">
+          <div className="col-md-6 form-floating">
             <input
               type="text"
               className="form-control"
@@ -182,7 +183,7 @@ export default function CustomerBilling(props) {
           </div>
           {/* checkout */}
           <div className="d-flex col-md-2 form-floating">
-            <Button classes="btn btn-primary" text="Checkout" whenClicked={e =>{
+            <Button classes="btn btn-outline-primary" text="Checkout" whenClicked={e =>{
               props.checkout(billingForm);
             }} />
           </div>

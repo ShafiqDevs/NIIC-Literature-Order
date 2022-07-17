@@ -54,10 +54,10 @@ export default function Product(props) {
                   }
 
                   const productItem = {
+                    product_id: props._id,
                     productName: props.itemName,
-                    quantity: parseInt(quantity),
                     totalPrice: props.totalPrice,
-                    strip_pid: props.strip_pid,
+                    quantity: parseInt(quantity),
                   };
                   props.onAdd(e, productItem);
                 }}

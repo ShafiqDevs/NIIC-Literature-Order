@@ -1,5 +1,6 @@
 import CartItem from "./CartItem";
 import Button from "./Button";
+import BillingForm from "./BillingForm";
 
 export default function ShoppingCart(props) {
   let bill = 0;
@@ -10,23 +11,29 @@ export default function ShoppingCart(props) {
 
   function updateBill(price) {
     bill += price;
-    bill =
-      Math.round((bill + Number.EPSILON) * 100) /
-      100;
+    bill = Math.round((bill + Number.EPSILON) * 100) / 100;
   }
   function showCartButtons() {
     if (props.cartItems.length > 0) {
       return (
-        <div className="input-group d-flex justify-content-end">
-          <span className="input-group-text">£</span>
-          <span className="input-group-text">{bill}</span>
-          <Button
-            classes="me-1 btn btn-outline-danger"
-            text="Clear Cart"
-            whenClicked={props.clearCart}
+        <>
+          <div className="input-group d-flex justify-content-end">
+            <span className="input-group-text">£</span>
+            <span className="input-group-text">{bill}</span>
+            <Button
+              classes="me-1 btn btn-outline-danger"
+              text="Clear Cart"
+              whenClicked={props.clearCart}
+            />
+
+            {/* <Button classes="btn btn-outline-primary" text="Checkout" whenClicked={props.viewBillingForm} /> */}
+          </div>
+          <BillingForm
+            checkout={(billingForm) => {
+              props.checkout(billingForm);
+            }}
           />
-          <Button classes="btn btn-outline-primary" text="Checkout" whenClicked={props.viewBillingForm} />
-        </div>
+        </>
       );
     }
   }
@@ -55,6 +62,7 @@ export default function ShoppingCart(props) {
           );
         })}
       </ul>
+
       {showCartButtons()}
     </div>
   );
