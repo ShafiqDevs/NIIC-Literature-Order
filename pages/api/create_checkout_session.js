@@ -45,7 +45,7 @@ function cartItemsToStripeFormat(_cartItems) {
   const lineItems = _cartItems.map((item) => {
     return {
       price_data: {
-        currency: "usd",
+        currency: "gbp",
         unit_amount: item.totalPrice * 100,
         product_data: {
           name: item.productName

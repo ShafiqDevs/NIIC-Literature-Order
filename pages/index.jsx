@@ -15,6 +15,7 @@ import { Checkout } from "../checkout";
 import BillingForm from "../components/BillingForm";
 import axios from "axios";
 import { loadStripe } from "@stripe/stripe-js";
+import {NEXT_URL} from "../utils/NEXT_URL.JS";
 
 export default function Home({ backendData }) {
   const [cartItems, setCartItems] = useState([]);
@@ -116,7 +117,7 @@ export const getServerSideProps = async (context) => {
     if (session.payment_status === "unpaid") {
       console.log("UNPAID!!!!!!!");
     } else {
-      axios.post("http://localhost:3000/api/add_order", session);
+      axios.post(`${NEXT_URL}/api/add_order`, session);
       return {
         redirect: {
           permanent: false,
