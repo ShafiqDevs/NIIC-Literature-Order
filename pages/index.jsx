@@ -2,6 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import mongoose from "mongoose";
 import db from "../utils/db";
+import Order from "../models/Order";
 import quranCollection from "../models/quranCollection";
 import styles from "../styles/Home.module.css";
 import BrandBar from "../components/BrandBar";
@@ -15,7 +16,6 @@ import { Checkout } from "../checkout";
 import BillingForm from "../components/BillingForm";
 import axios from "axios";
 import { loadStripe } from "@stripe/stripe-js";
-import {NEXT_URL} from "../utils/links"
 
 export default function Home({ backendData }) {
   const [cartItems, setCartItems] = useState([]);
@@ -46,7 +46,7 @@ export default function Home({ backendData }) {
 
     const response = await axios.post(`/api/create_checkout_session`, {
       cartItems: cartItems,
-      billingForm: billingForm
+      billingForm: billingForm,
     });
 
     Router.replace(response.data.checkout_session.url);
@@ -110,14 +110,15 @@ export const getServerSideProps = async (context) => {
 
   // if we have a session_id then process it
   if (context.query.session_id) {
-    const stripe = require("stripe")(NEXT_URL);
+    const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
     const session = await stripe.checkout.sessions.retrieve(
       context.query.session_id
     );
     if (session.payment_status === "unpaid") {
       console.log("UNPAID!!!!!!!");
     } else {
-      axios.post(`https://niic-online-shope.vercel.app/api/add_order.js`, session);
+      addOrderToDB(session); //--------------------
+      //axios.post(`https://niic-online-shope.vercel.app/api/add_order.js`, session);
       return {
         redirect: {
           permanent: false,
@@ -146,10 +147,38 @@ export const getServerSideProps = async (context) => {
   }
 };
 
-async function addOrderToDB(data) {
-  await connectMongo();
-  console.log("connected to SB");
-  console.log("inserting data into DB");
-  await TestOrders.insertMany([data]);
-  console.log("done inserting????");
+async function addOrderToDB(_session) {
+  await db.connect();
+
+  const billingForm = JSON.parse(_session.metadata.billingForm);
+  const cartItems = JSON.parse(_session.metadata.cartItems);
+  console.log("line 153:", _session.metadata.cartItems);
+
+  const cartItemsFormatted = await Promise.all(
+    cartItems.map(async (item) => {
+      return {
+        ...(await getProductData(item.product_id)),
+        Quantity: item.quantity,
+      };
+    })
+  );
+
+  let orders = cartItemsFormatted.map((item) => {
+    return {
+      ...item,
+      ...billingForm,
+    };
+  });
+  console.log("line 29:", orders);
+  await Order.insertMany(orders);
+  await db.disconnect();
+}
+
+async function getProductData(_product_id) {
+  const { _doc } = await quranCollection.findById(
+    _product_id,
+    "item_Name value weight length width height -_id"
+  );
+  //console.log("line 34:", _doc);
+  return _doc;
 }
