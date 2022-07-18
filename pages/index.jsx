@@ -122,7 +122,7 @@ export const getServerSideProps = async (context) => {
       return {
         redirect: {
           permanent: false,
-          destination: "/",
+          destination: "http://https://niic-online-shope.vercel.app/",
         },
         props: {},
       };
