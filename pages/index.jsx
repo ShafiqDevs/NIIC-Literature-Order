@@ -15,6 +15,7 @@ import { Checkout } from "../checkout";
 import BillingForm from "../components/BillingForm";
 import axios from "axios";
 import { loadStripe } from "@stripe/stripe-js";
+import {NEXT_URL} from "../utils/links"
 
 export default function Home({ backendData }) {
   const [cartItems, setCartItems] = useState([]);
@@ -109,14 +110,14 @@ export const getServerSideProps = async (context) => {
 
   // if we have a session_id then process it
   if (context.query.session_id) {
-    const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+    const stripe = require("stripe")(NEXT_URL);
     const session = await stripe.checkout.sessions.retrieve(
       context.query.session_id
     );
     if (session.payment_status === "unpaid") {
       console.log("UNPAID!!!!!!!");
     } else {
-      axios.post(`${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/add_order.js`, session);
+      axios.post(`https://niic-online-shope.vercel.app/api/add_order.js`, session);
       return {
         redirect: {
           permanent: false,
