@@ -6,6 +6,8 @@ const handler = async(req, res) => {
   // console.log("line 6:", JSON.parse(req.body.metadata.billingForm));
   // console.log("line 7:", JSON.parse(req.body.metadata.cartItems));
 
+console.log("xxxxxxxxxxxxxxxxx  order api xxxxxxxxxxxxxxxxxxxxxx");
+
   await db.connect();
 
   const billingForm = JSON.parse(req.body.metadata.billingForm);
