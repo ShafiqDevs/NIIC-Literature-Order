@@ -116,7 +116,7 @@ export const getServerSideProps = async (context) => {
     if (session.payment_status === "unpaid") {
       console.log("UNPAID!!!!!!!");
     } else {
-      axios.post(`/pages/api/add_order.js`, session);
+      axios.post(`${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/add_order.js`, session);
       return {
         redirect: {
           permanent: false,
