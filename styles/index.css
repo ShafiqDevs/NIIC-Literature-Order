@@ -7,6 +7,7 @@
 }
 .cart_Container{
     border-radius: 1.6%;
+    width: 600px;
 }
 .product_cart_Container{
     max-height: 254px;

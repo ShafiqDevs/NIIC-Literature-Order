@@ -7,7 +7,7 @@ export default function BrandBar(props) {
     <div>
       <nav className="navbar bg-dark">
         <div className="container">
-          <Link href="/">
+          <Link href="/test">
             <a className="navbar-brand">
               <img src="../images/niic.png" width={150} height={150} />
             </a>

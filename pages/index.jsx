@@ -116,13 +116,15 @@ export const getServerSideProps = async (context) => {
     );
     if (session.payment_status === "unpaid") {
       console.log("UNPAID!!!!!!!");
+      console.log("Line 119 Email:", context.query.session.customer_email);
     } else {
+      console.log("Line 121 Email:", session.customer_details.email);
       addOrderToDB(session); //--------------------
       //axios.post(`https://niic-online-shope.vercel.app/api/add_order.js`, session);
       return {
         redirect: {
           permanent: true,
-          destination: "/",
+          destination: "../",
         },
         props: {},
       };
@@ -152,6 +154,7 @@ async function addOrderToDB(_session) {
 
   const billingForm = JSON.parse(_session.metadata.billingForm);
   const cartItems = JSON.parse(_session.metadata.cartItems);
+  const email = _session.customer_details.email;
   console.log("line 153:", _session.metadata.cartItems);
 
   const cartItemsFormatted = await Promise.all(
@@ -167,6 +170,7 @@ async function addOrderToDB(_session) {
     return {
       ...item,
       ...billingForm,
+      Email: email,
     };
   });
   console.log("line 29:", orders);
