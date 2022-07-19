@@ -1,0 +1,28 @@
+
+
+.mainDiv{
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(13, 12, 19);
+}
+
+.centreDiv{
+    /* background-color: blue; */
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    /* padding-top: 170px; */
+    position: relative;
+    top: 150px;
+    background-color: rgb(212, 120, 0);
+    border-radius: 4%;
+    box-shadow: 2px 2px 5px rgb(212, 120, 0);
+    padding: 4px;
+}
+h1.header1{
+    font-size: 4rem;
+    color: white
+}
+.loadingIcon{
+    color: green;
+}

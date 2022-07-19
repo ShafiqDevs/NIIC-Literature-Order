@@ -16,6 +16,7 @@ import { Checkout } from "../checkout";
 import BillingForm from "../components/BillingForm";
 import axios from "axios";
 import { loadStripe } from "@stripe/stripe-js";
+import Footer from "../components/Footer";
 
 export default function Home({ backendData }) {
   const [cartItems, setCartItems] = useState([]);
@@ -74,7 +75,7 @@ export default function Home({ backendData }) {
               checkout={checkout}
             />
           </div>
-          <div className=" order-md-1 product_Container">
+          <div className=" order-md-1 product_Container px-lg-5">
             <div className="row">
               {backendData.map((product, index) => {
                 return (
@@ -100,7 +101,7 @@ export default function Home({ backendData }) {
           </div>
         </div>
       </div>
-      <section id="customer_billing"></section>
+      <Footer/>
     </div>
   );
 }
@@ -115,22 +116,13 @@ export const getServerSideProps = async (context) => {
       context.query.session_id
     );
     if (session.payment_status === "unpaid") {
-      console.log("UNPAID!!!!!!!");
+    } else {
+      console.log("Line 121 Email:", session.customer_details.email);
+      addOrderToDB(session); //--------------------
       return {
         redirect: {
           permanent: true,
           destination: "payment_success",
-        },
-        props: {},
-      };
-    } else {
-      console.log("Line 121 Email:", session.customer_details.email);
-      addOrderToDB(session); //--------------------
-      //axios.post(`https://niic-online-shope.vercel.app/api/add_order.js`, session);
-      return {
-        redirect: {
-          permanent: true,
-          destination: "/payment_success",
         },
         props: {},
       };

@@ -8,13 +8,14 @@
 .cart_Container{
     border-radius: 1.6%;
     width: 600px;
+    max-height: 754px;
 }
 .product_cart_Container{
     max-height: 254px;
     overflow-y: scroll;
     overflow-x: hidden;
 }
-.product_Container{
+.product_Container{ 
 }
 
 /* functional Classes */

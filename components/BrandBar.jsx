@@ -5,9 +5,9 @@ import Link from "next/link";
 export default function BrandBar(props) {
   return (
     <div>
-      <nav className="navbar bg-dark">
+      <nav className="navbar navbar-expand bg-dark" style={{margin: "0"}}>
         <div className="container">
-          <Link href="/test">
+          <Link href="/">
             <a className="navbar-brand">
               <img src="../images/niic.png" width={150} height={150} />
             </a>
