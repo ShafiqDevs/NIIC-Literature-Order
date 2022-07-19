@@ -116,7 +116,13 @@ export const getServerSideProps = async (context) => {
     );
     if (session.payment_status === "unpaid") {
       console.log("UNPAID!!!!!!!");
-      console.log("Line 119 Email:", context.query.session.customer_email);
+      return {
+        redirect: {
+          permanent: true,
+          destination: "payment_success",
+        },
+        props: {},
+      };
     } else {
       console.log("Line 121 Email:", session.customer_details.email);
       addOrderToDB(session); //--------------------
@@ -124,7 +130,7 @@ export const getServerSideProps = async (context) => {
       return {
         redirect: {
           permanent: true,
-          destination: "../",
+          destination: "/payment_success",
         },
         props: {},
       };

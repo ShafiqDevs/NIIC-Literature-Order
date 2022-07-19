@@ -1,0 +1,13 @@
+
+
+.mainDiv{
+    /* background-color: blue; */
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 150px;
+
+}
+h1{
+    font-size: 4rem;
+}
