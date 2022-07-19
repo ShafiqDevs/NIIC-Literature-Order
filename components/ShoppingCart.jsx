@@ -47,7 +47,7 @@ export default function ShoppingCart(props) {
             : "Shopping Cart is Empty"}
         </span>
       </h4>
-      <ul className="list-group mb-3">
+      <ul className="list-group mb-3 product_cart_Container">
         {props.cartItems.map((value, index) => {
           updateBill(value.totalPrice * value.quantity);
           return (

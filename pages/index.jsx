@@ -64,7 +64,7 @@ export default function Home({ backendData }) {
         cartItemCount={cartItems.length}
       />
       <div className="container-fluid">
-        <div className="row d-flex flex-row product_cart_Container mt-5">
+        <div className="row d-flex flex-row parent_cart_Container mt-5">
           <div className="col-md-4 order-md-2 cart_Container border border-primary hidden">
             <ShoppingCart
               classes="name"
@@ -74,7 +74,7 @@ export default function Home({ backendData }) {
               checkout={checkout}
             />
           </div>
-          <div className=" order-md-1  product_Container">
+          <div className=" order-md-1 product_Container">
             <div className="row">
               {backendData.map((product, index) => {
                 return (
@@ -121,7 +121,7 @@ export const getServerSideProps = async (context) => {
       //axios.post(`https://niic-online-shope.vercel.app/api/add_order.js`, session);
       return {
         redirect: {
-          permanent: false,
+          permanent: true,
           destination: "/",
         },
         props: {},

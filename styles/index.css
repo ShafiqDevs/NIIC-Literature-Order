@@ -1,14 +1,20 @@
-.product_cart_Container{
-
-    
+.parent_cart_Container{
     width: 100%;
     margin-left: auto;
     margin-right: auto;
+
+
 }
 .cart_Container{
     border-radius: 1.6%;
 }
-
+.product_cart_Container{
+    max-height: 254px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+.product_Container{
+}
 
 /* functional Classes */
 .hidden{
