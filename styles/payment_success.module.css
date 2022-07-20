@@ -14,9 +14,9 @@
     /* padding-top: 170px; */
     position: relative;
     top: 150px;
-    background-color: rgb(212, 120, 0);
+    background-color: green;
     border-radius: 4%;
-    box-shadow: 2px 2px 5px rgb(212, 120, 0);
+    box-shadow: 2px 2px 5px green;
     padding: 4px;
 }
 h1.header1{
